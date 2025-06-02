@@ -12,7 +12,7 @@ export default function FriendConnections() {
   const {
     incoming,
     outgoing,
-    connections,       // qui ogni elemento deve avere `friendRequestId` e `number`
+    connections,       // qui ogni elemento deve avere friendRequestId e number
     foundUser,
     searchError,
     searchByEmail,
@@ -44,7 +44,7 @@ export default function FriendConnections() {
 
   // Questa funzione mostra il popup di conferma e poi chiama handleRemoveFriend
   const confirmRemoveFriend = async (conn) => {
-    // `conn` è un oggetto { id, username, email, number, friendRequestId }
+    // conn è un oggetto { id, username, email, number, friendRequestId }
     const result = await Swal.fire({
       title: "Remove Friend?",
       text: `Are you sure you want to remove ${conn.username} from your connections?`,
@@ -196,9 +196,12 @@ export default function FriendConnections() {
         ) : (
           <ul className="list-group">
             {connections.map(conn => {
-              // conn.number contiene il numero di telefono come "+39..."
-              const phoneNumber = conn.number || "";
-              const plainNumber  = phoneNumber.replace(/\D/g, "");
+              // Qui invece di usare direttamente conn.number, applichiamo la stessa logica di TaskCard:
+              const raw = conn.number || ""; // es. "3311234567" o "+393311234567"
+              const withPrefix = raw.startsWith("+")
+                ? raw
+                : "+39" + raw.replace(/\D/g, ""); // aggiungo "+39" se manca
+              const plainNumber = withPrefix.replace(/\D/g, ""); // es. "393311234567"
 
               return (
                 <li
@@ -211,10 +214,10 @@ export default function FriendConnections() {
                     </span>
 
                     {/* Se esiste un numero di telefono, mostro le icone */}
-                    {phoneNumber && (
+                    {raw && (
                       <div className="d-flex gap-2 mb-2 mb-sm-0">
                         <a
-                          href={`tel:${phoneNumber}`}
+                          href={`tel:${withPrefix}`}
                           className="text-decoration-none text-danger"
                           title={`Call ${conn.username}`}
                         >
