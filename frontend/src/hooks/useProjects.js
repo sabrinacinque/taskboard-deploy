@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const BASE = "http://localhost:8080/api/v1/projects";
+const BASE = `${import.meta.env.VITE_API_URL}/api/v1/projects`;
 
 // LISTA PROGETTI
 export function useProjects() {
