@@ -20,7 +20,7 @@ public class CorsConfig {
             "http://localhost:3000",                        // React in locale
             "http://192.168.1.200:3000",                     // React via IP:porta
             "http://192.168.1.200:5173",                     // Vite in locale, se usi 5173
-            "https://taskboard-frontend-4trt.onrender.com"   // URL esatto del front in produzione
+            "https://taskboard-backend-q6tl.onrender.com"   // URL esatto del front in produzione
         ));
 
         // 2) Metodi HTTP permessi:
