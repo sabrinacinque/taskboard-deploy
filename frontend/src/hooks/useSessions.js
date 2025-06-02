@@ -1,4 +1,3 @@
-// src/hooks/useSessions.js
 import { useState, useEffect, useCallback } from "react";
 
 export function useSessions() {
@@ -6,12 +5,15 @@ export function useSessions() {
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState(null);
 
+  // Usa la variabile d’ambiente per ricavare l’URL base:
+  const BASE = `${import.meta.env.VITE_API_URL}/api/v1/sessions`;
+
   const fetchRecent = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8080/api/v1/sessions/recent", {
+      const res = await fetch(`${BASE}/recent`, {
         headers: { 
           "Authorization": `Bearer ${token}` 
         }
@@ -24,7 +26,7 @@ export function useSessions() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [BASE]);
 
   useEffect(() => {
     fetchRecent();
