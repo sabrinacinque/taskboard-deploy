@@ -1,0 +1,10 @@
+/* src/components/RecentSessions.css */
+.recent-sessions h6 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.session-item {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}

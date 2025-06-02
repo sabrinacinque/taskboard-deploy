@@ -1,0 +1,35 @@
+/* src/index.css (o App.css, a seconda del tuo setup) */
+
+/* Contenitore della chatbox, sempre in basso a destra */
+.chatbox-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050; /* Assicura che stia sopra tutti gli altri contenuti */
+}
+
+/* La card interna deve occupare tutta l’altezza del container */
+.chatbox-container .card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Body della card: padding ridotto, scroll se necessario */
+.chatbox-container .card-body {
+  padding: 0.5rem;
+}
+
+/* Lista di categorie/opzioni: massima altezza e scroll */
+.chatbox-container .list-group {
+  max-height: 280px;
+}
+
+/* Stile base per gli item della lista (bottoni) */
+.chatbox-container .list-group-item {
+  cursor: pointer;
+}
+
+/* Header con icona e testo ben allineato */
+.chatbox-container .card-header .d-flex {
+  gap: 0.5rem;
+}

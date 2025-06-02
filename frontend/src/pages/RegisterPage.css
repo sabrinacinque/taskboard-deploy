@@ -1,0 +1,66 @@
+/* src/pages/RegisterPage.css */
+
+/* =================
+   Card del form di registrazione
+   ================= */
+.register-card {
+  background-color: rgba(15, 28, 37, 0.9);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* =================
+   Titolo del form
+   ================= */
+.card-title {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* =================
+   Gruppo di input / select
+   (applica padding, colori, arrotondamento)
+   ================= */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #0f1c25;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+/* =================
+   Placeholder chiaro quando l’input ha sfondo scuro
+   ================= */
+
+/* Se l’input ha classe .bg-dark allora il placeholder appare bianco semitrasparente */
+.bg-dark.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Messaggio di errore */
+.error-text {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Link alternativo in fondo */
+.alt-text a {
+  color: #2f81f7;
+  text-decoration: none;
+}
+
+.alt-text a:hover {
+  text-decoration: underline;
+}

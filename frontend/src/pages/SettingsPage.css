@@ -1,0 +1,14 @@
+/* src/pages/SettingsPage.css */
+.settings-main {
+  min-height: calc(100vh - 60px);
+  color: #fff;
+}
+.settings-actions button {
+  margin-bottom: 1rem;
+}
+
+.settings {
+  background-image: url("/images/hero-background.png");
+  background-size: cover;
+  background-position: center;
+}

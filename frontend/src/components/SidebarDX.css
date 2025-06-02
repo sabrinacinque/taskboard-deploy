@@ -1,0 +1,27 @@
+/* src/components/SidebarDX.css */
+.sidebar-dx {
+  background-color: #050A11;
+  color: #fff;
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-dx h6 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 0.5rem;
+}
+
+.stats-panel h6 {
+  margin-bottom: 0.75rem;
+  color: #fff;
+}
+.stats-panel ul li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #fff;
+}

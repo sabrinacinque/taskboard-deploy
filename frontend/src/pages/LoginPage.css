@@ -1,0 +1,189 @@
+/* src/pages/LoginPage.css */
+
+/* Layout wrapper: include sidebar + hero background */
+.page-layout {
+  min-height: calc(100vh - 60px); /* altezza viewport meno header */
+}
+
+/* Sezione hero con background scuro */
+.hero-background {
+  background-image: url("/images/hero-background.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* =================
+   Card del form di login
+   ================= */
+.login-card {
+  background-color: rgba(15, 28, 37, 0.9);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* =================
+   Titolo del form
+   ================= */
+.login-title {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* =================
+   Gruppo di ogni input
+   ================= */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #0f1c25;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Placeholder chiaro */
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* =================
+   Password-group con toggle
+   ================= */
+.password-group {
+  position: relative;
+}
+
+.password-group input {
+  padding-right: 2.5rem; /* spazio per icona “occhio” */
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2rem;
+}
+
+.password-toggle:hover {
+  color: #fff;
+}
+
+/* =================
+   Testo di errore
+   ================= */
+.error-text {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* =================
+   Link “Sign up” in fondo
+   ================= */
+.signup-text {
+  margin-top: 1rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signup-text a {
+  color: #2f81f7;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* =================
+   Pulsante “Forgot your password” 
+   ================= */
+.underl {
+  text-decoration: underline;
+}
+
+/* Overlay per il WelcomeModal: deve coprire tutta la finestra */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1060;
+}
+
+/* Finestra interna del modal */
+.modal-content {
+  position: relative;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: rgba(15, 28, 37, 0.95);
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  z-index: 1061;
+}
+
+/* Pulsante di chiusura “X” (Bootstrap) */
+.btn-close-white {
+  filter: invert(100%);
+}
+
+/* Titolo interno del modal */
+.modal-content h3 {
+  color: #2f81f7;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content h4 {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+
+/* Lista puntata interna */
+.modal-content ul {
+  padding-left: 1.2rem;
+}
+
+.modal-content ul li {
+  margin-bottom: 0.4rem;
+}
+
+/* Checkbox “Don't show again” */
+.modal-content .form-check-input {
+  cursor: pointer;
+}
+
+.modal-content .form-check-label {
+  cursor: pointer;
+}
+
+/* Pulsanti in fondo (Got it / Open Chat Now) */
+.modal-content .btn {
+  min-width: 120px;
+}
+
+/* Icona robot (circle blu) */
+.modal-content .bg-primary {
+  background-color: #2f81f7 !important;
+}
+
+/* Freccia giù / destra (se vuoi usare ArrowDown/ArrowRight al posto del ✓) */
+.modal-content .fs-4 {
+  font-size: 1.5rem;
+}

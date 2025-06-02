@@ -1,0 +1,36 @@
+/* src/MainComponent/Sidebar.css */
+.sidebar {
+  background-color: #0F1C25;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+  border-radius: 4px;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  padding: 0.5rem 0;
+  text-align: left;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+}

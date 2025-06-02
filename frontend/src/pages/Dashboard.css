@@ -1,0 +1,87 @@
+/* src/pages/Dashboard.css */
+
+/* ---------------------------------------------------------------- */
+/* 1) WRAPPER PRINCIPALE: occupa tutto il viewport (header escluso) */
+/* ---------------------------------------------------------------- */
+.dashboard-wrapper {
+  display: flex;
+  height: calc(100vh - 60px); /* supponendo header di 60px fissi */
+  position: relative;
+  overflow: hidden; /* nulla deve eccedere orizzontalmente */
+}
+
+/* --------------------------------------------- */
+/* 2) SIDEBAR SINISTRA FISSA (≥ lg)              */
+/* --------------------------------------------- */
+.sidebar-static {
+  width: 240px;           /* stessa larghezza usata in Sidebar.css */
+  flex-shrink: 0;
+  height: 100%;
+}
+
+/* --------------------------------------------- */
+/* 3) SIDEBAR DESTRA FISSA (≥ lg)                */
+/* --------------------------------------------- */
+.sideright-static {
+  width: 240px;           /* puoi regolare come preferisci */
+  flex-shrink: 0;
+  height: 100%;
+}
+
+/* --------------------------------------------- */
+/* 4) AREE PER MOBILE (< lg)                     */
+/*    - I toggle (icone-fluttuanti) posizionate   */
+/*      in alto, sub-header                        */
+/* --------------------------------------------- */
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 70px; /* subito sotto header (60px) + 10px di margine */
+  z-index: 1200;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 0.25rem;
+  transition: color 0.2s;
+}
+.sidebar-toggle-btn:hover {
+  color: #ddd;
+  cursor: pointer;
+}
+
+/* Toggle per sidebar-left: posizionato a sinistra */
+.toggle-left {
+  left: 10px;
+}
+
+/* Toggle per sidebar-right: posizionato a destra */
+.toggle-right {
+  right: 10px;
+}
+
+/* --------------------------------------------- */
+/* 5) CONTENUTO CENTRALE                         */
+/* --------------------------------------------- */
+.main-area {
+  /* Occupa tutto lo spazio tra le due sidebar fisse su desktop */
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Il Board vero e proprio (sempre visibile) */
+.board-area {
+  flex-grow: 1;
+  background-image: url("/images/hero-background.png");
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto;
+}
+
+/* Se il toggle nasconde la sidebar, aggiungiamo padding-top
+   per non sovrapporre il contenuto al bottone */
+@media (max-width: 991.98px) {
+  .board-area {
+    padding-top: 3rem; /* spazio per i due toggle flottanti */
+  }
+}
