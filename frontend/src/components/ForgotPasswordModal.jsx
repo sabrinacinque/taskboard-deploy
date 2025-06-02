@@ -9,8 +9,11 @@ export default function ForgotPasswordModal({ isOpen, onClose }) {
     e.preventDefault();
     setIsLoading(true);
 
+  const API_BASE = import.meta.env.VITE_API_URL;
+  
+
     try {
-      const res = await fetch("http://localhost:8080/api/v1/auth/forgot-password", {
+      const res = await fetch(`${API_BASE}/api/v1/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

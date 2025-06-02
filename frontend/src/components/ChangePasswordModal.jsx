@@ -7,6 +7,8 @@ export default function ChangePasswordModal({ show, onClose }) {
   const [newPass, setNewPass]     = useState("");
   const [confirmPass, setConfirm] = useState("");
 
+  const API_BASE = import.meta.env.VITE_API_URL;
+  
   if (!show) return null;
 
   const handleSave = async e => {
@@ -17,7 +19,7 @@ export default function ChangePasswordModal({ show, onClose }) {
     const userId = localStorage.getItem("userId");
     const token  = localStorage.getItem("token");
     const res = await fetch(
-      `http://localhost:8080/api/v1/users/${userId}/password`,
+      `${API_BASE}/api/v1/users/${userId}/password`,
       {
         method: "PUT",
         headers: {

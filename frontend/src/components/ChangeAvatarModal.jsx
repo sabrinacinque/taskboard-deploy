@@ -10,6 +10,8 @@ const AVATAR_OPTIONS = [
   { key: "star",   Icon: FiStar },
 ];
 
+ const API_BASE = import.meta.env.VITE_API_URL;
+
 export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
   const [choice, setChoice] = useState("");
   const userId = localStorage.getItem("userId");
@@ -18,7 +20,7 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
   useEffect(() => {
     if (!show) return;
     // Legge l’avatar corrente dal backend, se esiste
-    fetch(`http://localhost:8080/api/v1/users/${userId}/avatar`, {
+    fetch(`${API_BASE}/api/v1/users/${userId}/avatar`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(r => (r.ok ? r.json() : null))
@@ -33,7 +35,7 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
 
   const handleSave = async () => {
     const res = await fetch(
-      `http://localhost:8080/api/v1/users/${userId}/avatar`,
+      `${API_BASE}/api/v1/users/${userId}/avatar`,
       {
         method: "PUT",
         headers: {

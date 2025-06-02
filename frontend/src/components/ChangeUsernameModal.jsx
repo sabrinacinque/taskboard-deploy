@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 export default function ChangeUsernameModal({ show, onClose }) {
   const [newUsername, setNewUsername] = useState("");
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   if (!show) return null;
 
@@ -12,7 +13,7 @@ export default function ChangeUsernameModal({ show, onClose }) {
     const userId = localStorage.getItem("userId");
     const token  = localStorage.getItem("token");
     const res = await fetch(
-      `http://localhost:8080/api/v1/users/${userId}/username`,
+      `${API_BASE}/api/v1/users/${userId}/username`,
       {
         method: "PUT",
         headers: {

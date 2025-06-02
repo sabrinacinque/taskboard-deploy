@@ -28,6 +28,7 @@ export default function Sidebar() {
   const avatarKey  = localStorage.getItem("avatar");
   const AvatarIcon = AVATAR_MAP[avatarKey] || FiUser;
   const navigate   = useNavigate();
+  const BASE_URL = `${import.meta.env.VITE_API_URL}/api/v1/sessions/logout`;
 
   const handleLogout = async () => {
     const result = await Swal.fire({
@@ -42,7 +43,7 @@ export default function Sidebar() {
 
     try {
       const token = localStorage.getItem("token");
-      await fetch("http://localhost:8080/api/v1/sessions/logout", {
+      await fetch(BASE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
