@@ -17,7 +17,6 @@ import com.sabrina.services.ContactEmailService;
 
 @RestController
 @RequestMapping("/api/v1/contact")
-@CrossOrigin(origins = "*")
 public class ContactController {
     
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);

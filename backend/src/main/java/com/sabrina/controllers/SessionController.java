@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/sessions")
-@CrossOrigin(origins = "*")
 public class SessionController {
 
     @Autowired

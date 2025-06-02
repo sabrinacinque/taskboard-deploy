@@ -24,7 +24,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/v1/users/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

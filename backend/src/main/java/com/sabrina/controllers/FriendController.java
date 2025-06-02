@@ -12,7 +12,6 @@ import com.sabrina.services.SessionService;
 
 @RestController
 @RequestMapping("/api/v1/friends")
-@CrossOrigin(origins = "*")
 public class FriendController {
 
     @Autowired

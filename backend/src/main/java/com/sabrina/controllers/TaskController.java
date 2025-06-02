@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
-@CrossOrigin(origins = "*")
 public class TaskController {
 
     @Autowired private TaskService taskService;

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/users/{userId}/avatar")
-@CrossOrigin(origins = "*")
 public class UserAvatarController {
 
     @Autowired

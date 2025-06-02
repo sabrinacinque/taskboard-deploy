@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import Sidebar from "../MainComponent/Sidebar";
 import "./LoginPage.css";
 
 export default function ResetPasswordPage() {
@@ -49,7 +48,7 @@ export default function ResetPasswordPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:8080/api/v1/auth/reset-password", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password: password }),

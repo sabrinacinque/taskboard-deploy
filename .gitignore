@@ -1,0 +1,15 @@
+# Maven / Spring Boot
+**/target/
+
+# IDE (Eclipse/IntelliJ/VSCode)
+*.classpath
+*.project
+.settings/
+*.iml
+
+# Node / Vite
+/frontend/node_modules/
+**/.vite/
+
+# Altri file di sistema
+.DS_Store

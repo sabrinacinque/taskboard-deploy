@@ -27,7 +27,7 @@ export default function ContactPage() {
     try {
       console.log('Sending contact request to backend:', formData);
       
-      const response = await fetch('http://localhost:8080/api/v1/contact', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

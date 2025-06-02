@@ -12,7 +12,6 @@ import com.sabrina.services.SessionService;
 
 @RestController
 @RequestMapping("/api/v1/projects")
-@CrossOrigin(origins="*")
 public class ProjectController {
 
     @Autowired private ProjectService projectService;
