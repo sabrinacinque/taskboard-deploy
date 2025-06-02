@@ -1,27 +1,39 @@
-﻿# Usa un’immagine base con Java 17
-FROM eclipse-temurin:17-jdk
+﻿# -----------------------------------------------------------------
+# FASE 1: BUILD → compila l’applicazione e crea il JAR
+# -----------------------------------------------------------------
+FROM eclipse-temurin:17-jdk AS build
 
-# Imposta la directory di lavoro all’interno del container
+# Imposta la cartella di lavoro all’interno del container
 WORKDIR /app
 
-# Copia lo script Maven Wrapper e il file pom.xml nella directory di lavoro
+# Copia i file necessari per il Maven Wrapper e il pom.xml
 COPY mvnw pom.xml ./
-
-# Copia la cartella .mvn (necessaria al Maven Wrapper)
 COPY .mvn/ .mvn
 
 # Rendi eseguibile lo script mvnw
 RUN chmod +x mvnw
 
-# Risolvi le dipendenze con Maven (il wrapper mvnw ora è eseguibile)
-RUN ./mvnw dependency:resolve
-
-# Copia il codice sorgente all’interno di /app/src
+# Copia il sorgente Java (tutte le cartelle src) nella directory di lavoro
 COPY src ./src
 
-# (Opzionale) Esponi la porta 8080, che Spring Boot usa di default
+# Esegui il package Maven (salta i test per velocizzare)
+RUN ./mvnw package -DskipTests
+
+
+# -----------------------------------------------------------------
+# FASE 2: RUNTIME → esegue solo il jar già compilato
+# -----------------------------------------------------------------
+FROM eclipse-temurin:17-jdk
+
+# Cartella di lavoro per l’immagine finale
+WORKDIR /app
+
+# Copia il JAR prodotto dalla fase di build
+# (è il file con estensione .jar dentro la cartella target/)
+COPY --from=build /app/target/*.jar app.jar
+
+# Esponi la porta 8080 (quella di default di Spring Boot)
 EXPOSE 8080
 
-# Comando di avvio: usa il Maven Wrapper per lanciare Spring Boot
-CMD ["./mvnw", "spring-boot:run"]
-
+# Comando di avvio dell’app: esegue il JAR con Java
+ENTRYPOINT ["java", "-jar", "app.jar"]
