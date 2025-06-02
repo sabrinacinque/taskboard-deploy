@@ -17,27 +17,27 @@ public class CorsConfig {
 
         // 1) Elenca qui TUTTE le origini (front-end) che dovranno chiamare il back-end:
         config.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3000",                        // React in locale
-            "http://192.168.1.200:3000",                     // React via IP:porta
-            "http://192.168.1.200:5173",                     // Vite in locale, se usi 5173
-            "https://taskboard-backend-q6tl.onrender.com"   // URL esatto del front in produzione
+            "http://localhost:3000",                        // React in locale (sviluppo)
+            "http://192.168.1.200:3000",                     // React via IP locale
+            "http://192.168.1.200:5173",                     // Vite in locale
+            "https://taskboard-frontend-4trt.onrender.com"   // URL esatto del frontend in produzione
         ));
 
         // 2) Metodi HTTP permessi:
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
-        // 3) Se vuoi permettere gli header “Content-Type”, “Authorization” ecc:
+        // 3) Header consentiti (es. Content-Type, Authorization, ecc.):
         config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
 
         // 4) Permetti l’invio di cookie/credentials:
         config.setAllowCredentials(true);
 
-        // 5) Esplicita quali header devono essere esposti al client
+        // 5) Esplicita quali header esporre al client:
         config.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
 
-        // 6) Applica questa configurazione a tutti i path che iniziano con /api/:
+        // 6) Applica questa configurazione a TUTTI i path del server (“/**” anziché “/api/**”):
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/**", config);
 
         return source;
     }
