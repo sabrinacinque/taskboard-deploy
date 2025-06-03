@@ -1,4 +1,3 @@
-// src/MainComponent/Sidebar.jsx
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -22,7 +21,7 @@ const AVATAR_MAP = {
   star:  FiStar,
 };
 
-export default function Sidebar() {
+export default function Sidebar({ onLinkClick }) {
   const isLoggedIn = !!localStorage.getItem("token");
   const username   = localStorage.getItem("username");
   const avatarKey  = localStorage.getItem("avatar");
@@ -73,7 +72,14 @@ export default function Sidebar() {
   return (
     <aside className="sidebar vh-100 d-flex flex-column py-5">
       <nav className="nav flex-column px-3 fs-5 vh-100">
-        <NavLink end to="/" className="nav-link d-flex align-items-center mb-2">
+        <NavLink
+          end
+          to="/"
+          className="nav-link d-flex align-items-center mb-2"
+          onClick={() => {
+            if (onLinkClick) onLinkClick();
+          }}
+        >
           <FiHome className="me-2" /> Home
         </NavLink>
 
@@ -82,18 +88,27 @@ export default function Sidebar() {
             <NavLink
               to="/teams"
               className="nav-link d-flex align-items-center mb-2"
+              onClick={() => {
+                if (onLinkClick) onLinkClick();
+              }}
             >
               <FiUsers className="me-2" /> Friends
             </NavLink>
             <NavLink
               to="/projects"
               className="nav-link d-flex align-items-center mb-2"
+              onClick={() => {
+                if (onLinkClick) onLinkClick();
+              }}
             >
               <FiFolder className="me-2" /> Projects
             </NavLink>
             <NavLink
               to="/settings"
               className="nav-link d-flex align-items-center"
+              onClick={() => {
+                if (onLinkClick) onLinkClick();
+              }}
             >
               <FiSettings className="me-2" /> Settings
             </NavLink>
@@ -103,7 +118,7 @@ export default function Sidebar() {
 
       {isLoggedIn && (
         <>
-          <div className="user-section mt-auto  px-3 pb-4 d-flex align-items-center">
+          <div className="user-section mt-auto px-3 pb-4 d-flex align-items-center">
             <div
               className="user-avatar d-flex justify-content-center align-items-center me-2"
               style={{

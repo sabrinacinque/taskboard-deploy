@@ -1,4 +1,3 @@
-// src/MainComponent/SidebarWrapper.jsx
 import React, { useState, useEffect } from "react";
 import { ChevronsRight, ChevronsLeft } from "lucide-react";
 import Sidebar from "./Sidebar.jsx";
@@ -49,7 +48,6 @@ export default function SidebarWrapper() {
           )}
         </button>
 
-        
         <div
           className="position-fixed top-0 h-100 bg-white shadow"
           style={{
@@ -61,7 +59,8 @@ export default function SidebarWrapper() {
           }}
         >
           <div key={avatarKey} className="h-100">
-            <Sidebar />
+            {/* Passo la funzione di chiusura alla Sidebar */}
+            <Sidebar onLinkClick={toggleLeftSidebar} />
           </div>
         </div>
 
