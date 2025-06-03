@@ -8,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.sabrina.entities.UserAvatar;
 import com.sabrina.services.UserAvatarService;
-import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/users/{userId}/avatar")
