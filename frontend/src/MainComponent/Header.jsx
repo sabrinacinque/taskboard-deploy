@@ -7,17 +7,36 @@ import "./Header.css";
 export default function Header() {
   const { isLoggedIn } = useAuth();
 
+  const handleNavLinkClick = () => {
+    const collapseElement = document.getElementById("navbarNav");
+    const toggler = document.getElementById("navbarToggler");
+
+    if (collapseElement.classList.contains("show")) {
+      // Rimuovo la classe "show" dal collapse per chiuderlo
+      collapseElement.classList.remove("show");
+
+      // Aggiungo la classe "collapsed" al pulsante toggler e setto aria-expanded a false
+      toggler.classList.add("collapsed");
+      toggler.setAttribute("aria-expanded", "false");
+    }
+  };
+
   return (
     <nav className="app-header navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         {/* Brand a sinistra */}
-        <NavLink to="/" className="navbar-brand d-flex align-items-center fs-2">
+        <NavLink
+          to="/"
+          className="navbar-brand d-flex align-items-center fs-2"
+          onClick={handleNavLinkClick}
+        >
           TaskBoard
         </NavLink>
 
         {/* Hamburger per mobile */}
         <button
-          className="navbar-toggler border-0"
+          id="navbarToggler"
+          className="navbar-toggler border-0 collapsed"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -37,6 +56,7 @@ export default function Header() {
                   className={({ isActive }) =>
                     "nav-link" + (isActive ? " active" : "")
                   }
+                  onClick={handleNavLinkClick}
                 >
                   Dashboard
                 </NavLink>
@@ -50,6 +70,7 @@ export default function Header() {
                 className={({ isActive }) =>
                   "nav-link" + (isActive ? " active" : "")
                 }
+                onClick={handleNavLinkClick}
               >
                 Help
               </NavLink>
@@ -60,6 +81,7 @@ export default function Header() {
                 className={({ isActive }) =>
                   "nav-link" + (isActive ? " active" : "")
                 }
+                onClick={handleNavLinkClick}
               >
                 About us
               </NavLink>
