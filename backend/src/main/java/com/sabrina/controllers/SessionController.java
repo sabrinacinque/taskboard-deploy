@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/sessions")
+@CrossOrigin(origins = "https://taskboard-frontend-0ta1.onrender.com", allowCredentials = "true")
 public class SessionController {
 
     @Autowired
