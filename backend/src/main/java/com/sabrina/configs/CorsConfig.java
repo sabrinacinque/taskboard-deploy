@@ -6,34 +6,24 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
+
+import java.util.List;
 
 @Configuration
 public class CorsConfig {
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // 1) Elenca qui TUTTE le origini (front-end) che dovranno chiamare il back-end:
-        config.setAllowedOriginPatterns(Arrays.asList("*"));
-
-        // 2) Metodi HTTP permessi:
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // 3) Header consentiti (es. Content-Type, Authorization, ecc.):
-        config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
-
-        // 4) Permetti l'invio di cookie/credentials:
+        // Permetti solo il tuo dominio front-end
+        config.setAllowedOrigins(List.of("https://taskboard-frontend-0ta1.onrender.com"));
+        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        // Puoi anche usare config.setAllowedHeaders(List.of("*"));
+        config.setAllowedHeaders(List.of("Content-Type","Authorization"));
         config.setAllowCredentials(true);
+        config.setExposedHeaders(List.of("Authorization","Set-Cookie"));
 
-        // 5) Esplicita quali header esporre al client:
-        config.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
-
-        // 6) Applica questa configurazione a TUTTI i path del server ("/**" anziché "/api/**"):
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-
         return source;
     }
 }

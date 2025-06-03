@@ -29,6 +29,13 @@ public class SessionController {
         return sessionService.authenticateByUserNameAndPassword(input, request);
     }
 
+    // ========== GET di test su /login ========== 
+    @GetMapping("/login")
+    public RestBasic loginGet() {
+        // Risponde sempre con un JSON di tipo { success: true, message: "Login endpoint ok" }
+        return new RestBasic(true, "Login endpoint OK");
+    }
+
     @PostMapping("/logout")
     public RestBasic logout(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");
