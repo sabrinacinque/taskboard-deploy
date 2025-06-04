@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import "./RegisterPage.css"; // <-- Assicurati che questo import punti al file qui sotto
+import "./RegisterPage.css"; // eventuali stili custom
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -10,6 +10,11 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [number, setNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Stati per le checkbox
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -17,9 +22,19 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
 
-    // Validazione password
+    // Controlla che le checkbox siano spuntate
+    if (!acceptedTerms) {
+      setError("You must download and accept the Terms and Conditions.");
+      return;
+    }
+    if (!acceptedPrivacy) {
+      setError("You must download and accept the Privacy Policy.");
+      return;
+    }
+
+    // Verifica che le password combacino
     if (password !== confirmPassword) {
-      setError("Le password non corrispondono");
+      setError("Passwords do not match.");
       return;
     }
 
@@ -48,10 +63,10 @@ export default function RegisterPage() {
         });
         navigate("/login");
       } else {
-        setError(body.message || "Registrazione fallita");
+        setError(body.message || "Registration failed.");
       }
     } catch {
-      setError("Errore di rete");
+      setError("Network error. Please try again.");
     }
   };
 
@@ -61,7 +76,7 @@ export default function RegisterPage() {
         <div className="row justify-content-center">
           <div className="col-12 col-md-6 col-xxl-4">
             <div className="register-card bg-dark bg-opacity-75 p-4 p-md-5">
-              <h2 className="card-title">Sign up</h2>
+              <h2 className="card-title text-center mb-4">Sign Up</h2>
               <form onSubmit={handleSubmit}>
                 {/* Username */}
                 <div className="form-group mb-3">
@@ -94,9 +109,7 @@ export default function RegisterPage() {
                     className="form-control form-control-lg bg-dark text-white border-0 rounded-3"
                     placeholder="Phone Number"
                     value={number}
-                    onChange={(e) =>
-                      setNumber(e.target.value.replace(/\D/g, ""))
-                    }
+                    onChange={(e) => setNumber(e.target.value.replace(/\D/g, ""))}
                     required
                   />
                 </div>
@@ -125,24 +138,64 @@ export default function RegisterPage() {
                   />
                 </div>
 
+                {/* Checkbox: Terms and Conditions (download link) */}
+                <div className="form-check mb-2">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="acceptTerms"
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  />
+                  <label className="form-check-label text-white" htmlFor="acceptTerms">
+                    I have read and accept the{" "}
+                    <a
+                      href="/terms.txt"                     
+                      className="text-primary text-decoration-underline"
+                      target="_blank"
+                    >
+                      Terms and Conditions
+                    </a>
+                  </label>
+                </div>
+
+                {/* Checkbox: Privacy Policy (download link) */}
+                <div className="form-check mb-3">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="acceptPrivacy"
+                    checked={acceptedPrivacy}
+                    onChange={(e) => setAcceptedPrivacy(e.target.checked)}
+                  />
+                  <label className="form-check-label text-white" htmlFor="acceptPrivacy">
+                    I have read and accept the{" "}
+                    <a
+                      href="/privacy.txt"
+                      className="text-primary text-decoration-underline"
+                      target="_blank"
+                    >
+                      Privacy Policy
+                    </a>
+                  </label>
+                </div>
+
+                {/* Messaggio di errore */}
                 {error && (
-                  <div className="error-text alert alert-danger text-center py-2 mb-3 small">
+                  <div className="alert alert-danger text-center py-2 mb-3 small">
                     {error}
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100 btn-lg py-2 mb-3"
-                >
-                  Sign up
+                <button type="submit" className="btn btn-primary w-100 btn-lg py-2 mb-3">
+                  Sign Up
                 </button>
               </form>
 
               <p className="alt-text text-center mb-0 text-white">
                 Already have an account?{" "}
                 <Link to="/login" className="text-primary text-decoration-none">
-                  Login
+                  Log In
                 </Link>
               </p>
             </div>

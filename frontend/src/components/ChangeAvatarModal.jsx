@@ -46,7 +46,7 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
       }
     );
     if (res.ok) {
-      Swal.fire("Successo", "Avatar aggiornato", "success");
+      Swal.fire("Success", "Avatar changed!", "success");
       // 1) Aggiorna il localStorage
       localStorage.setItem("avatar", choice);
       // 2) Chiudi il modal
@@ -58,7 +58,7 @@ export default function ChangeAvatarModal({ show, onClose, onUpdated }) {
         onUpdated(choice);
       }
     } else {
-      Swal.fire("Errore", "Impossibile aggiornare avatar", "error");
+      Swal.fire("Errore", "Impossible update avatar", "error");
     }
   };
 

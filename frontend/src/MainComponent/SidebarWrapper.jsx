@@ -36,15 +36,15 @@ export default function SidebarWrapper() {
       <div className="d-lg-none">
         {/* Bottone fluttuante per aprire/chiudere */}
         <button
-          className="btn btn-outline-secondary position-fixed top-50 start-0 translate-middle-y ms-2 bg-dark border border-3 rounded-5"
+          className="btn btn-outline-secondary position-fixed top-50 start-0 translate-middle-y me-2 bg-dark border border-3 rounded-5 me-3"
           type="button"
           onClick={toggleLeftSidebar}
           style={{ zIndex: 1050 }}
         >
           {leftSidebarOpen ? (
-            <ChevronsLeft size={30} className="text-white" />
+            <ChevronsLeft size={20} className="text-white" />
           ) : (
-            <ChevronsRight size={30} className="text-white" />
+            <ChevronsRight size={20} className="text-white" />
           )}
         </button>
 

@@ -118,7 +118,7 @@ export default function Sidebar({ onLinkClick }) {
 
       {isLoggedIn && (
         <>
-          <div className="user-section mt-auto px-3 pb-4 d-flex align-items-center">
+          <div className="user-section mt-auto px-3 d-flex align-items-center">
             <div
               className="user-avatar d-flex justify-content-center align-items-center me-2"
               style={{
@@ -138,7 +138,7 @@ export default function Sidebar({ onLinkClick }) {
             </div>
           </div>
 
-          <div className="logout-section px-3 pb-4">
+          <div className="logout-section px-3 pb-5">
             <button
               onClick={handleLogout}
               className="logout-btn d-flex align-items-center fs-5"

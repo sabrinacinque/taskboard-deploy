@@ -1,39 +1,67 @@
 // src/components/ChangePasswordModal.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 export default function ChangePasswordModal({ show, onClose }) {
-  const [oldPass, setOldPass]     = useState("");
-  const [newPass, setNewPass]     = useState("");
-  const [confirmPass, setConfirm] = useState("");
+  const [newPass, setNewPass]         = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
 
   const API_BASE = import.meta.env.VITE_API_URL;
-  
+
+  // Ogni volta che 'show' cambia, svuoto i campi e resetto lo "show" degli occhi
+  useEffect(() => {
+    if (!show) {
+      setNewPass("");
+      setConfirmPass("");
+      setShowNewPass(false);
+      setShowConfirmPass(false);
+    }
+  }, [show]);
+
   if (!show) return null;
 
-  const handleSave = async e => {
+  const handleSave = async (e) => {
     e.preventDefault();
+
     if (newPass !== confirmPass) {
       return Swal.fire("Error", "Passwords do not match", "error");
     }
+
     const userId = localStorage.getItem("userId");
     const token  = localStorage.getItem("token");
-    const res = await fetch(
-      `${API_BASE}/api/v1/users/${userId}/password`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type":  "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({ oldPassword: oldPass, newPassword: newPass })
+
+    try {
+      const payload = {
+        // Includo "oldPassword" finto (uguale a newPass), 
+        // così il server non va in errore 500 per JSON mancante
+        oldPassword: newPass,
+        newPassword: newPass
+      };
+
+      const res = await fetch(
+        `${API_BASE}/api/v1/users/${userId}/password`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type":  "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        }
+      );
+
+      if (res.ok) {
+        await Swal.fire("Success", "Password changed!", "success");
+        onClose();
+
+        // qui non serve resettare di nuovo, perché useEffect farà il reset appena show diventa false
+      } else {
+        Swal.fire("Error", "Could not change password", "error");
       }
-    );
-    if (res.ok) {
-      await Swal.fire("Success", "Password changed!", "success");
-      onClose();
-    } else {
-      Swal.fire("Error", "Could not change password", "error");
+    } catch {
+      Swal.fire("Error", "Network error", "error");
     }
   };
 
@@ -55,35 +83,60 @@ export default function ChangePasswordModal({ show, onClose }) {
               />
             </div>
             <div className="modal-body">
-              <div className="mb-3">
+              {/* Nuova password con icona occhio */}
+              <div className="mb-3 position-relative">
                 <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Old password"
-                  value={oldPass}
-                  onChange={e => setOldPass(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="password"
+                  type={showNewPass ? "text" : "password"}
                   className="form-control"
                   placeholder="New password"
                   value={newPass}
-                  onChange={e => setNewPass(e.target.value)}
+                  onChange={(e) => setNewPass(e.target.value)}
                   required
                 />
+                <span
+                  onClick={() => setShowNewPass(prev => !prev)}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "1rem",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#6c757d"
+                  }}
+                >
+                  {showNewPass 
+                    ? <i className="bi bi-eye-slash" /> 
+                    : <i className="bi bi-eye" />
+                  }
+                </span>
               </div>
-              <div>
+
+              {/* Conferma nuova password con icona occhio */}
+              <div className="mb-3 position-relative">
                 <input
-                  type="password"
+                  type={showConfirmPass ? "text" : "password"}
                   className="form-control"
                   placeholder="Confirm new password"
                   value={confirmPass}
-                  onChange={e => setConfirm(e.target.value)}
+                  onChange={(e) => setConfirmPass(e.target.value)}
                   required
                 />
+                <span
+                  onClick={() => setShowConfirmPass(prev => !prev)}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "1rem",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#6c757d"
+                  }}
+                >
+                  {showConfirmPass 
+                    ? <i className="bi bi-eye-slash" /> 
+                    : <i className="bi bi-eye" />
+                  }
+                </span>
               </div>
             </div>
             <div className="modal-footer">

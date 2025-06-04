@@ -1,0 +1,65 @@
+TERMS AND CONDITIONS
+
+Last updated: June 2025
+
+1. INTRODUCTION
+Welcome to TaskBoard. These Terms and Conditions (“Terms”) govern your access to and use of the TaskBoard web application. By registering, logging in, or otherwise using TaskBoard, you agree to be bound by these Terms. If you do not agree with any part of these Terms, you must not use TaskBoard.
+
+2. ELIGIBILITY
+2.1. You must be at least 13 years old to create an account on TaskBoard.  
+2.2. By using TaskBoard, you represent and warrant that you have the legal capacity to enter into a binding agreement.  
+2.3. If you are under 18, you must have your parent or legal guardian’s consent before agreeing to these Terms.
+
+3. USER ACCOUNTS
+3.1. To access certain features of TaskBoard, you will be required to register and create an account.  
+3.2. You agree to provide accurate, current, and complete information during registration and to keep your account information updated.  
+3.3. You are responsible for safeguarding your account credentials (username and password) and for any activities that occur under your account. You must notify us immediately if you suspect any unauthorized use of your account.
+
+4. USER CONTENT
+4.1. “User Content” means any tasks, projects, comments, attachments, or other data you create or upload to TaskBoard.  
+4.2. You retain all ownership rights to your User Content. By providing User Content to TaskBoard, you grant TaskBoard a worldwide, royalty-free, non-exclusive license to use, reproduce, modify, and display that content only to the extent necessary to provide the service.  
+4.3. You are solely responsible for your User Content. You must ensure that your User Content does not violate any applicable law, infringe on any third party’s rights, or contain harmful or offensive content.
+
+5. ACCEPTABLE USE
+5.1. You agree not to use TaskBoard for any unlawful or prohibited purpose, including but not limited to:  
+     a. Uploading, posting, or transmitting any content that is illegal, offensive, defamatory, or harmful.  
+     b. Attempting to gain unauthorized access to any portion of TaskBoard or other users’ accounts.  
+     c. Interfering with or disrupting the integrity or performance of TaskBoard servers.  
+     d. Collecting or harvesting any personally identifiable information from other users.
+5.2. We reserve the right to terminate or suspend your account if you violate these Acceptable Use provisions.
+
+6. FEES AND SUBSCRIPTIONS
+6.1. TaskBoard is currently provided free of charge. There are no fees or subscription charges for basic usage.  
+6.2. We may introduce premium features or subscription plans in the future. If and when we do, we will provide clear notice of any fees, billing terms, and refund policies. You will have the option to accept or decline any paid upgrade.
+
+7. PRIVACY
+Your use of TaskBoard is also governed by our Privacy Policy, which explains how we collect, use, and disclose information about you. By using TaskBoard, you consent to the terms of the Privacy Policy.
+
+8. TERMINATION
+8.1. You may delete your account at any time by accessing your account settings and following the instructions to permanently remove your account.  
+8.2. We reserve the right to suspend or terminate your account if (a) you breach these Terms, (b) we are required to do so by law, or (c) we assess that your use of TaskBoard poses a security or legal risk to other users or ourselves.  
+8.3. Upon termination, your User Content will be permanently deleted, and you will no longer have access to your data unless it is recoverable by lawful request.
+
+9. DISCLAIMERS AND LIMITATION OF LIABILITY
+9.1. TaskBoard is provided “AS IS” and “AS AVAILABLE,” without warranties of any kind, whether express or implied. We disclaim all warranties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, accuracy, and non-infringement.  
+9.2. We do not warrant that TaskBoard will be uninterrupted, timely, secure, or error-free.  
+9.3. To the maximum extent permitted by law, in no event will TaskBoard, its affiliates, officers, employees, or agents be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of TaskBoard, even if we have been advised of the possibility of such damages. Our aggregate liability for direct damages will not exceed the amount you have paid to us (if any) in the twelve months preceding the claim.
+
+10. CHANGES TO THESE TERMS
+10.1. We may update these Terms from time to time. When changes are made, we will post the updated Terms on our website and update the “Last updated” date at the top.  
+10.2. If we make material changes to these Terms, we will notify you by email (if we have your email address) or by means of a prominent notice on TaskBoard.  
+10.3. By continuing to use TaskBoard after the effective date of any updated Terms, you accept and agree to the changes.
+
+11. GOVERNING LAW AND DISPUTES
+11.1. These Terms are governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law principles.  
+11.2. Any dispute arising from or relating to these Terms shall be resolved exclusively in the state or federal courts located in [Your Jurisdiction County/City], and you and TaskBoard each consent to personal jurisdiction and venue in those courts.
+
+12. SEVERABILITY
+If any provision of these Terms is held to be invalid or unenforceable by a court of competent jurisdiction, the remainder of these Terms will remain in full force and effect, and such provision will be deemed modified to the minimum extent necessary to make it enforceable.
+
+13. ENTIRE AGREEMENT
+These Terms, together with the Privacy Policy and any other documents we expressly incorporate by reference, constitute the entire agreement between you and TaskBoard regarding the use of our service, superseding all prior or contemporaneous agreements, communications, and proposals, whether oral or written.
+
+14. CONTACT US
+If you have any questions, concerns, or feedback regarding these Terms, please contact us at:  
+support@taskboard.com

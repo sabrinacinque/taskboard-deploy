@@ -61,9 +61,9 @@ export default function Dashboard() {
           style={{ zIndex: 1050 }}
         >
           {rightSidebarOpen ? (
-            <ChevronsRight size={30} className="text-white" />
+            <ChevronsRight size={20} className="text-white" />
           ) : (
-            <ChevronsLeft size={30} className="text-white" />
+            <ChevronsLeft size={20} className="text-white" />
           )}
         </button>
 

@@ -41,10 +41,10 @@ export default function AddMemberModal({
 
   return (
     <>
-      <div className="modal-backdrop fade show" />
-      <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
-        <div className="modal-dialog">
-          <form className="modal-content" onSubmit={handleSubmit}>
+      <div className="modal-backdrop fade show mx-auto" />
+      <div className="modal fade show mx-auto" style={{ display: "block" }} tabIndex="-1">
+        <div className="modal-dialog mx-auto">
+          <form className="modal-content mx-auto" onSubmit={handleSubmit}>
             <div className="modal-header">
               <h5 className="modal-title">Select Members</h5>
               <button type="button" className="btn-close" onClick={onClose} />
@@ -53,15 +53,15 @@ export default function AddMemberModal({
               {connections.length === 0 ? (
                 <p>No connections to add.</p>
               ) : (
-                <ul className="list-group">
+                <ul className="list-group ps-0">
                   {connections.map(u => {
                     const already = existingMembers.includes(u.id);
                     return (
                       <li
                         key={u.id}
-                        className="list-group-item d-flex justify-content-between align-items-center bg-secondary bg-opacity-25 text-white"
+                        className="list-group-item d-flex justify-content-between align-items-center bg-secondary bg-opacity-25 text-white "
                       >
-                        <span>
+                        <span className="text-break">
                           {u.username} ({u.email}){" "}
                           {already && <em>(added already)</em>}
                         </span>
@@ -80,12 +80,12 @@ export default function AddMemberModal({
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-danger"
                 onClick={onClose}
               >
                 Close
               </button>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-success">
                 Save
               </button>
             </div>

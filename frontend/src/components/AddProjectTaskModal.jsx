@@ -52,7 +52,7 @@ export default function AddProjectTaskModal({
       <div className="modal-backdrop fade show" />
       <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
         <div className="modal-dialog">
-          <form className="modal-content bg-dark text-light" onSubmit={handleSubmit}>
+          <form className="modal-content bg-dark text-light mx-auto" onSubmit={handleSubmit}>
             <div className="modal-header">
               <h5 className="modal-title">
                 {editingTask ? 'Edit Project Task' : 'Add Project Task'}
@@ -88,7 +88,7 @@ export default function AddProjectTaskModal({
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-danger"
                 onClick={onClose}
               >
                 Cancel
