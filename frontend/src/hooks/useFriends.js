@@ -10,7 +10,7 @@ export function useFriends() {
   const token = localStorage.getItem("token");
   const meId  = Number(localStorage.getItem("userId"));
 
-  // Variabile d’ambiente per URL base:
+  // URL base per le API “friends”
   const BASE = `${import.meta.env.VITE_API_URL}/api/v1/friends`;
 
   const authHeaders = useMemo(() => ({
@@ -21,9 +21,7 @@ export function useFriends() {
   // 1) fetch incoming (richieste in arrivo)
   const fetchIncoming = useCallback(async () => {
     try {
-      const res = await fetch(`${BASE}/pending`, {
-        headers: authHeaders
-      });
+      const res = await fetch(`${BASE}/pending`, { headers: authHeaders });
       if (res.ok) {
         setIncoming(await res.json());
       }
@@ -35,9 +33,7 @@ export function useFriends() {
   // 2) fetch outgoing (richieste inviate)
   const fetchOutgoing = useCallback(async () => {
     try {
-      const res = await fetch(`${BASE}/outgoing`, {
-        headers: authHeaders
-      });
+      const res = await fetch(`${BASE}/outgoing`, { headers: authHeaders });
       if (res.ok) {
         setOutgoing(await res.json());
       }
@@ -49,13 +45,11 @@ export function useFriends() {
   // 3) fetch connections (amicizie accettate)
   const fetchConnections = useCallback(async () => {
     try {
-      const res = await fetch(`${BASE}/connections`, {
-        headers: authHeaders
-      });
+      const res = await fetch(`${BASE}/connections`, { headers: authHeaders });
       if (!res.ok) return;
       const frs = await res.json(); // array di FriendRequest
 
-      // 3.a) mappo ciascuna FriendRequest in { id, username, email, friendRequestId }
+      // 3.a) mappo ciascuna FriendRequest in { id, username, email, number, friendRequestId }
       const peersWithRequestId = frs.map(fr => {
         const peer = fr.requester.id === meId ? fr.target : fr.requester;
         return {
@@ -78,15 +72,27 @@ export function useFriends() {
     }
   }, [BASE, authHeaders, meId]);
 
-  // 4) search by email
-  const searchByEmail = useCallback(async email => {
+  /**
+   * 4) searchByPhone: chiama il nuovo endpoint
+   *    GET /api/v1/users?phone=<normalized>
+   */
+  const searchByPhone = useCallback(async rawPhone => {
     setSearchError("");
     setFoundUser(null);
+
+    // Normalizzo: tolgo tutto ciò che non è cifra e rimuovo il prefisso "39" se presente
+    let normalized = rawPhone.replace(/\D/g, "");        // "+39 331 1234567" → "393311234567"
+    if (normalized.startsWith("39")) {
+      normalized = normalized.slice(2);                  // → "3311234567"
+    }
+    // Ora 'normalized' contiene solo le cifre senza prefisso
+
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/users?email=${encodeURIComponent(email)}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/users?phone=${encodeURIComponent(normalized)}`,
         { headers: authHeaders }
       );
+
       if (res.ok) {
         const user = await res.json();
         if (user.id === meId) {
@@ -102,7 +108,7 @@ export function useFriends() {
     }
   }, [authHeaders, meId]);
 
-  // 5) send request
+  // 5) invia richiesta di connessione
   const sendRequest = useCallback(async toUserId => {
     const res = await fetch(`${BASE}/request`, {
       method: "POST",
@@ -117,7 +123,7 @@ export function useFriends() {
     }
   }, [BASE, authHeaders, fetchOutgoing]);
 
-  // 6) respond to incoming request
+  // 6) rispondi a richiesta in entrata
   const respond = useCallback(async (requestId, accept) => {
     await fetch(
       `${BASE}/${requestId}/respond?accept=${accept}`,
@@ -127,7 +133,7 @@ export function useFriends() {
     await fetchConnections();
   }, [BASE, authHeaders, fetchIncoming, fetchConnections]);
 
-  // 7) remove friend (DELETE di una FriendRequest già accettata)
+  // 7) rimuovi amicizia (DELETE di una FriendRequest già accettata)
   const handleRemoveFriend = useCallback(async requestId => {
     try {
       const res = await fetch(`${BASE}/${requestId}`, {
@@ -135,7 +141,6 @@ export function useFriends() {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (res.ok) {
-        // dopo aver eliminato, ricarica le connessioni
         await fetchConnections();
       } else {
         console.error("removeFriend API returned", res.status);
@@ -145,7 +150,7 @@ export function useFriends() {
     }
   }, [BASE, token, fetchConnections]);
 
-  // inizializza i tre fetch all’avvio
+  // all’avvio, popolo le liste
   useEffect(() => {
     fetchIncoming();
     fetchOutgoing();
@@ -155,10 +160,10 @@ export function useFriends() {
   return {
     incoming,
     outgoing,
-    connections,      // qui ora ogni elemento è { id, username, email, number, friendRequestId }
+    connections,      // ogni elemento: { id, username, email, number, friendRequestId }
     foundUser,
     searchError,
-    searchByEmail,
+    searchByPhone,
     sendRequest,
     respond,
     handleRemoveFriend

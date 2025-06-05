@@ -1,4 +1,3 @@
-// src/components/FriendConnections.jsx
 import React, { useState } from "react";
 import { FiTrash2, FiPhone } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
@@ -12,23 +11,23 @@ export default function FriendConnections() {
   const {
     incoming,
     outgoing,
-    connections,       // qui ogni elemento deve avere friendRequestId e number
+    connections,       // ogni elemento: { id, username, email, number, friendRequestId }
     foundUser,
     searchError,
-    searchByEmail,
+    searchByPhone,
     sendRequest,
     respond,
-    handleRemoveFriend // funzione fornita dallo hook
+    handleRemoveFriend
   } = useFriends();
 
   const { addTask, fetchAll: refreshTasks } = useTasks();
 
-  const [emailToSearch, setEmail] = useState("");
+  const [phoneToSearch, setPhone] = useState("");
   const [sendTo, setSendTo] = useState(null);
 
   const handleSearch = () => {
-    if (!emailToSearch) return;
-    searchByEmail(emailToSearch);
+    if (!phoneToSearch) return;
+    searchByPhone(phoneToSearch);
   };
 
   const handleSendRequest = async () => {
@@ -42,12 +41,10 @@ export default function FriendConnections() {
     });
   };
 
-  // Questa funzione mostra il popup di conferma e poi chiama handleRemoveFriend
   const confirmRemoveFriend = async (conn) => {
-    // conn è un oggetto { id, username, email, number, friendRequestId }
     const result = await Swal.fire({
       title: "Remove Friend?",
-      text: `Are you sure you want to remove ${conn.username} from your connections?`,
+      text: `Are you sure you want to remove ${conn.username}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -59,12 +56,10 @@ export default function FriendConnections() {
     if (!result.isConfirmed) return;
 
     try {
-      // chiamo la funzione dallo hook passando friendRequestId
       await handleRemoveFriend(conn.friendRequestId);
-
       await Swal.fire({
         title: "Removed!",
-        text: `${conn.username} has been removed from your connections.`,
+        text: `${conn.username} has been removed.`,
         icon: "success",
         timer: 1500,
         showConfirmButton: false
@@ -103,18 +98,22 @@ export default function FriendConnections() {
   return (
     <div className="container-fluid background text-white vh-100 p-3 p-md-4 overflow-y-scroll">
       <div className="pt-3 pt-md-5">
-        <h2 className="mb-4">Find & Connect</h2>
+        <h2 className="mb-2 text-warning">Find &amp; Connect</h2>
+        <h4>Keep in touch with your friends!!</h4>
+        <p className="text-white mb-4">
+          Search by phone number and click “Add” to send a connection request.
+        </p>
 
-        {/* -- Ricerca utente -- */}
+        {/* Ricerca utente per numero di cellulare */}
         <div className="row mb-4">
           <div className="col-12 col-md-8 col-lg-6">
             <div className="input-group">
               <input
-                type="email"
+                type="tel"
                 className="form-control"
-                placeholder="User email"
-                value={emailToSearch}
-                onChange={e => setEmail(e.target.value)}
+                placeholder="User phone number (example 3311234567)"
+                value={phoneToSearch}
+                onChange={e => setPhone(e.target.value)}
               />
               <button className="btn btn-success" onClick={handleSearch}>
                 Search
@@ -125,37 +124,45 @@ export default function FriendConnections() {
 
         {searchError && <div className="alert alert-danger">{searchError}</div>}
 
-        {/* -- Utente trovato -- */}
+        {/* Utente trovato */}
         {foundUser && (
-          <div className="card mb-4 bg-dark text-white border-secondary" style={{ maxWidth: '400px' }}>
-            <div className="card-body">
-              <h5 className="card-title">User Found</h5>
-              <p className="card-text">
-                <strong>{foundUser.username}</strong> ({foundUser.email})
-              </p>
-
-              {relationStatus() === "none" && (
-                <button className="btn btn-success" onClick={handleSendRequest}>
-                  Send Connection Request
-                </button>
-              )}
-              {relationStatus() === "pending_out" && (
-                <button className="btn btn-warning" disabled>
-                  Request pending
-                </button>
-              )}
-              {relationStatus() === "pending_in" && (
-                <span className="text-info">They asked to connect</span>
-              )}
-              {relationStatus() === "connected" && (
-                <span className="text-success">You are connected</span>
-              )}
+          <div className="card mb-5 bg-dark text-white border-secondary" style={{ maxWidth: '400px' }}>
+            <div className="card-body d-flex justify-content-between align-items-center">
+              <div>
+                <h5 className="card-title mb-1">User Found</h5>
+                <p className="card-text mb-0">
+                  <strong>{foundUser.username}</strong><br />
+                  <small className="text-muted">{foundUser.number || "no phone on record"}</small>
+                </p>
+              </div>
+              <div>
+                {relationStatus() === "none" && (
+                  <button className="btn btn-outline-primary" onClick={handleSendRequest}>
+                    <i className="bi bi-person-plus-fill"></i> Add
+                  </button>
+                )}
+                {relationStatus() === "pending_out" && (
+                  <button className="btn btn-warning" disabled>
+                    <i className="bi bi-hourglass-split"></i> Pending
+                  </button>
+                )}
+                {relationStatus() === "pending_in" && (
+                  <button className="btn btn-info" disabled>
+                    <i className="bi bi-arrow-clockwise"></i> Accept?
+                  </button>
+                )}
+                {relationStatus() === "connected" && (
+                  <button className="btn btn-success" disabled>
+                    <i className="bi bi-person-check-fill"></i> Connected
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}
 
-        {/* -- Incoming Requests -- */}
-        <h2 className="my-4">Incoming Requests</h2>
+        {/* Incoming Requests */}
+        <h2 className="mt-5 text-warning">Incoming Requests</h2>
         {incoming.length === 0 ? (
           <p className="pb-4">No pending requests.</p>
         ) : (
@@ -189,19 +196,18 @@ export default function FriendConnections() {
 
         <hr className="my-4" />
 
-        {/* -- Lista Connessioni (amici) -- */}
-        <h2 className="my-4">Your Connections</h2>
+        {/* Lista Connessioni */}
+        <h2 className="my-4 text-warning">Your Connections</h2>
         {connections.length === 0 ? (
           <p>You have no connections yet.</p>
         ) : (
           <ul className="list-group">
             {connections.map(conn => {
-              // Qui invece di usare direttamente conn.number, applichiamo la stessa logica di TaskCard:
-              const raw = conn.number || ""; // es. "3311234567" o "+393311234567"
+              const raw = conn.number || "";
               const withPrefix = raw.startsWith("+")
                 ? raw
-                : "+39" + raw.replace(/\D/g, ""); // aggiungo "+39" se manca
-              const plainNumber = withPrefix.replace(/\D/g, ""); // es. "393311234567"
+                : "+39" + raw.replace(/\D/g, "");
+              const plainNumber = withPrefix.replace(/\D/g, "");
 
               return (
                 <li
@@ -210,10 +216,9 @@ export default function FriendConnections() {
                 >
                   <div className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center w-100">
                     <span className="me-3 mb-2 mb-sm-0">
-                      {conn.username} ({conn.email})
+                      {conn.username} ({conn.number})
                     </span>
 
-                    {/* Se esiste un numero di telefono, mostro le icone */}
                     {raw && (
                       <div className="d-flex gap-2 mb-2 mb-sm-0">
                         <a
@@ -247,7 +252,7 @@ export default function FriendConnections() {
                       className="btn btn-sm btn-outline-danger"
                       onClick={() => confirmRemoveFriend(conn)}
                     >
-                      Remove
+                      <FiTrash2 /> Remove
                     </button>
                   </div>
                 </li>

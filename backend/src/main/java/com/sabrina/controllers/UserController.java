@@ -65,4 +65,14 @@ public class UserController {
                 "User not found with email: " + email
             ));
     }
+
+     
+        @GetMapping(params = "phone")
+       public User findByPhone(@RequestParam String phone) {
+         return userService.findByNumber(phone)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "User not found with phone: " + phone
+                ));
+    }  
 }
