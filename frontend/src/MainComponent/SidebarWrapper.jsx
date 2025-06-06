@@ -1,9 +1,11 @@
+// SidebarWrapper.jsx
 import React, { useState, useEffect } from "react";
 import { ChevronsRight, ChevronsLeft } from "lucide-react";
 import Sidebar from "./Sidebar.jsx";
+import "./SidebarWrapper.css"; // importa il CSS che hai appena creato
 
 export default function SidebarWrapper() {
-  // 1) avatarKey forzerà il remount di <Sidebar> quando cambia
+  // 1) avatarKey forzare il remount di <Sidebar> quando cambia
   const [avatarKey, setAvatarKey] = useState(
     localStorage.getItem("avatar") || ""
   );
@@ -36,16 +38,52 @@ export default function SidebarWrapper() {
       <div className="d-lg-none">
         {/* Bottone fluttuante per aprire/chiudere */}
         <button
-          className="btn btn-outline-secondary position-fixed top-50 start-0 translate-middle-y me-2 bg-dark border border-3 rounded-5 me-3"
+          className="btn btn-outline-secondary position-fixed top-50 translate-middle-y ms-0 bg-dark border border-2 rounded-circle px-0 py-0"
           type="button"
           onClick={toggleLeftSidebar}
-          style={{ zIndex: 1050 }}
+          style={{ zIndex: 1050, width: "50px", height: "50px" }}
         >
-          {leftSidebarOpen ? (
-            <ChevronsLeft size={20} className="text-white" />
-          ) : (
-            <ChevronsRight size={20} className="text-white" />
-          )}
+          <div className="circle-button-content px-auto mx-auto">
+            {/* Icona centrata */}
+            <div className="icon-center">
+              {leftSidebarOpen ? (
+                <ChevronsLeft size={20} />
+              ) : (
+                <ChevronsRight size={20} />
+              )}
+            </div>
+
+            {/* SVG con testo circolare */}
+            <svg
+              className="circular-text p-1"
+              viewBox="0 0 50 50"
+            >
+              <defs>
+                {/*
+                  Definiamo un cerchio di raggio 20 (centro 25,25) 
+                  su cui andrà a “scorrere” il testo.
+                */}
+                <path
+                  id="circlePathLeft"
+                  d="
+                    M25,25 
+                    m-25,0 
+                    a20,20 0 1,1 40,0 
+                    a20,20 0 1,1 -40,0
+                  "
+                />
+              </defs>
+              <text>
+                <textPath
+                  href="#circlePathLeft"
+                  startOffset="50%"
+                  textAnchor="middle"
+                >
+                  {leftSidebarOpen ? "TAP TO CLOSE" : "TAP TO OPEN"}
+                </textPath>
+              </text>
+            </svg>
+          </div>
         </button>
 
         <div
@@ -55,7 +93,7 @@ export default function SidebarWrapper() {
             width: "300px",
             zIndex: 1040,
             transition: "left 0.3s ease-in-out",
-            marginTop: "60px" // lascia spazio al header
+            marginTop: "60px", // lascia spazio al header
           }}
         >
           <div key={avatarKey} className="h-100">
@@ -67,7 +105,7 @@ export default function SidebarWrapper() {
         {/* Overlay che copre il resto e chiude la sidebar quando cliccato */}
         {leftSidebarOpen && (
           <div
-            className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"
+            className="position-fixed top-0 start-0 w-100 h-100  bg-opacity-50"
             style={{ zIndex: 1035, marginTop: "60px" }}
             onClick={toggleLeftSidebar}
           ></div>

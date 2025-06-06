@@ -17,7 +17,7 @@ export default function StatsPanel({ tasks }) {
   ];
 
   return (
-    <div className="stats-panel p-3 mt-4 text-white bg-dark rounded">
+    <div className="stats-panel p-3 mt-4 mb-5 text-white bg-dark rounded">
       <ul className="list-unstyled mb-4">
         <li>🟢 Open: <strong>{openCount}</strong></li>
         <li>✅ Closed: <strong>{closedCount}</strong></li>
