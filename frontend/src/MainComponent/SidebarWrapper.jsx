@@ -38,7 +38,7 @@ export default function SidebarWrapper() {
       <div className="d-lg-none">
         {/* Bottone fluttuante per aprire/chiudere */}
         <button
-          className="btn btn-outline-secondary position-fixed top-50 translate-middle-y ms-0 bg-dark border border-2 rounded-circle px-0 py-0"
+          className="btn position-fixed top-50 translate-middle-y ms-0 rounded-circle px-0 py-0"
           type="button"
           onClick={toggleLeftSidebar}
           style={{ zIndex: 1050, width: "50px", height: "50px" }}

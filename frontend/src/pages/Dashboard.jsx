@@ -55,7 +55,7 @@ export default function Dashboard() {
       {/* Sidebar destra - solo su mobile/tablet ha il toggle */}
       <div className="d-xl-none">
         <button
-          className="btn btn-outline-secondary position-fixed top-50 end-0 translate-middle-y me-3 bg-dark border border-2 rounded-circle px-0 py-0"
+          className="btn position-fixed top-50 end-0 translate-middle-y me-3 rounded-circle px-0 py-0"
           type="button"
           onClick={toggleRightSidebar}
           style={{ zIndex: 1050, width: "50px", height: "50px" }}
