@@ -69,9 +69,9 @@ export default function AddTaskModal({
   return (
     <>
       <div className="modal-backdrop fade show"></div>
-      <div className="modal fade show" style={{ display: "block" }} tabIndex="-1">
+      <div className="modal fade show " style={{ display: "block" }} tabIndex="-1">
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content bg-dark text-light">
+          <div className="modal-content bg-dark text-light mx-auto">
             <div className="modal-header">
               <h5 className="modal-title">
                 {state === "incoming" ? "Sent Task" : `New Task (${state})`}

@@ -19,8 +19,8 @@ export default function StatsPanel({ tasks }) {
   return (
     <div className="stats-panel p-3 mt-4 mb-5 text-white bg-dark rounded">
       <ul className="list-unstyled mb-4">
-        <li>🟢 Open: <strong>{openCount}</strong></li>
-        <li>✅ Closed: <strong>{closedCount}</strong></li>
+        <li>🟢 Open: <strong style={{color:"#FF6B6B"}}>{openCount}</strong></li>
+        <li>✅ Closed: <strong style={{color:"#4ECDC4"}}>{closedCount}</strong></li>
       </ul>
       <div style={{ width: "100%", height: 200 }}>
         <ResponsiveContainer>

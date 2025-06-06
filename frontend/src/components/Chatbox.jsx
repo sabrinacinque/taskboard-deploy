@@ -18,13 +18,13 @@ export default function Chatbox({ onClose }) {
           id: "change-state",
           text: "How can I change a task's status?",
           answer:
-            "Simply drag and drop the task card between columns (e.g., Urgent, This Week, Incoming, Done) or use the status dropdown within the task details modal.",
+            "You can add a task in your URGENT list or THIS WEEK list.When the task is done, you can push the flag button in that specific task to move in DONE list.In INCOMING,youìll see the task that your friend sent to you.",
         },
         {
           id: "assign-task",
           text: "How do I assign a task to someone?",
           answer:
-            "When creating or editing a task, select the assignee from the 'Assign to' dropdown. You can choose anyone who is a member of the project or in your friends list.",
+            "In the section FRIENDS, you can choose anyone who is a member in your friends list.With the button SEND A TASK, you can send a task to a specific friend",
         },
         {
           id: "task-deadline",
