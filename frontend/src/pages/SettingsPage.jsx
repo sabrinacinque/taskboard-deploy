@@ -1,9 +1,11 @@
 // src/pages/SettingsPage.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import ChangePasswordModal from "../components/ChangePasswordModal";
 import ChangeUsernameModal from "../components/ChangeUsernameModal";
 import ChangeAvatarModal from "../components/ChangeAvatarModal";
-import { FiUser, FiUsers, FiSmile, FiStar } from "react-icons/fi";
+import { FiUser, FiUsers, FiSmile, FiStar, FiTrash2 } from "react-icons/fi";
 import "./SettingsPage.css";
 
 const AVATAR_COMPONENTS = {
@@ -14,6 +16,8 @@ const AVATAR_COMPONENTS = {
 };
 
 export default function SettingsPage() {
+  const navigate = useNavigate();
+
   const [showPwd, setShowPwd] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
@@ -25,10 +29,49 @@ export default function SettingsPage() {
   const initialAvatar = localStorage.getItem("avatar") || "";
   const [currentAvatar, setCurrentAvatar] = useState(initialAvatar);
 
-  // questa funzione verrà passata a ChangeAvatarModal come prop onUpdated
+  // callback quando l'avatar viene aggiornato
   const handleAvatarUpdated = newKey => {
     setCurrentAvatar(newKey);
-    // Non serve altro qui, SidebarWrapper si aggiornerà tramite evento
+  };
+
+  // Cancella account e disconnette l'utente
+  const handleDeleteAccount = async () => {
+    const result = await Swal.fire({
+      title: "Delete your account?",
+      text: "This action is irreversible and will remove all your data.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete my account",
+      cancelButtonText: "Cancel"
+    });
+    if (!result.isConfirmed) return;
+
+    const userId = localStorage.getItem("userId");
+    const token  = localStorage.getItem("token");
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}`,
+        {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` }
+        }
+      );
+      if (res.status === 204) {
+        // 1) Disconnetti
+        localStorage.clear();
+        // 2) Notifica
+        await Swal.fire("Deleted!", "Your account has been deleted.", "success");
+        // 3) Torna alla homepage
+        navigate("/");
+      } else {
+        throw new Error(`Status ${res.status}`);
+      }
+    } catch (err) {
+      console.error("Delete account failed:", err);
+      Swal.fire("Error", "Could not delete account. Please try again.", "error");
+    }
   };
 
   return (
@@ -72,7 +115,6 @@ export default function SettingsPage() {
           <div className="my-3 my-md-4 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center border-bottom pb-3">
             <div className="d-flex align-items-center mb-2 mb-sm-0">
               <h2 className="h4 h3-md mb-0 me-3">Change Avatar</h2>
-              {/* Icona avatar corrente */}
               {currentAvatar && AVATAR_COMPONENTS[currentAvatar] && (
                 <div
                   style={{
@@ -96,6 +138,22 @@ export default function SettingsPage() {
               onClick={() => setShowAvatar(true)}
             >
               Change
+            </button>
+          </div>
+
+          {/* Delete Account */}
+          <div className="my-3 my-md-4 d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center border-bottom pb-3">
+            <div className="mb-2 mb-sm-0">
+              <h2 className="h4 h3-md mb-1 text-danger">Delete Account</h2>
+              <span className="small text-white">
+                Permanently remove your account and all associated data.
+              </span>
+            </div>
+            <button
+              className="btn btn-outline-danger btn-sm btn-md-normal"
+              onClick={handleDeleteAccount}
+            >
+              <FiTrash2 className="me-1" /> Delete
             </button>
           </div>
         </div>

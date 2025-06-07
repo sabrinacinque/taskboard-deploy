@@ -114,4 +114,8 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	public void deleteAccount(Long id) {
+		userRepository.deleteById(id);
+	}
+
 }
