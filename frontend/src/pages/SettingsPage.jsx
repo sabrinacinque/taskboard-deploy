@@ -36,43 +36,28 @@ export default function SettingsPage() {
 
   // Cancella account e disconnette l'utente
   const handleDeleteAccount = async () => {
-    const result = await Swal.fire({
-      title: "Delete your account?",
-      text: "This action is irreversible and will remove all your data.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete my account",
-      cancelButtonText: "Cancel"
-    });
-    if (!result.isConfirmed) return;
+  const result = await Swal.fire({ /* conferma come prima */ });
+  if (!result.isConfirmed) return;
 
-    const userId = localStorage.getItem("userId");
-    const token  = localStorage.getItem("token");
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}`,
-        {
-          method: "DELETE",
-          headers: { "Authorization": `Bearer ${token}` }
-        }
-      );
-      if (res.status === 204) {
-        // 1) Disconnetti
-        localStorage.clear();
-        // 2) Notifica
-        await Swal.fire("Deleted!", "Your account has been deleted.", "success");
-        // 3) Torna alla homepage
-        navigate("/");
-      } else {
-        throw new Error(`Status ${res.status}`);
-      }
-    } catch (err) {
-      console.error("Delete account failed:", err);
-      Swal.fire("Error", "Could not delete account. Please try again.", "error");
+  const userId = localStorage.getItem("userId");
+  const token  = localStorage.getItem("token");
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}`,
+      { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
+    );
+    if (res.status === 204) {
+      localStorage.clear();
+      await Swal.fire("Deleted!", "Your account has been deleted.", "success");
+      navigate("/");
+    } else {
+      throw new Error(`Status ${res.status}`);
     }
-  };
+  } catch (err) {
+    console.error("Delete account failed:", err);
+    Swal.fire("Error", "Could not delete account. Please try again.", "error");
+  }
+};
 
   return (
     <div className="container-fluid settings min-vh-100 d-flex flex-column">

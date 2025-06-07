@@ -3,6 +3,8 @@ package com.sabrina.controllers;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,11 +36,12 @@ public class UserController {
 		return this.userService.registerUser(user);
 	}
 
+    // in UserController.java
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long id) {
-        userService.deleteAccount(id);
-        return ResponseEntity.noContent().build();
-    }
+      userService.anonymizeAccount(id);
+      return ResponseEntity.noContent().build();
+}
 	
 	// Cambia username
     @PutMapping("/{id}/username")

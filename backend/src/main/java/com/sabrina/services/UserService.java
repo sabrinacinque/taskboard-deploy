@@ -3,6 +3,10 @@ package com.sabrina.services;
 import com.sabrina.entities.User;
 import com.sabrina.models.RestSaveUser;
 import com.sabrina.repositories.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -114,8 +118,18 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	public void deleteAccount(Long id) {
-		userRepository.deleteById(id);
-	}
+	@Transactional
+    public void anonymizeAccount(Long id) {
+        User u = userRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        u.setUsername("Deleted user " + id);
+        u.setEmail(null);
+        u.setPassword(null);
+        u.setNumber(null);
+        u.setActive(false);
+
+        userRepository.save(u);
+    }
 
 }
