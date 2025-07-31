@@ -16,7 +16,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // 1) Permetti soltanto il dominio del frontend
-        config.setAllowedOrigins(List.of("https://taskboard-frontend-0ta1.onrender.com",
+        config.setAllowedOrigins(List.of("https://taskboard-frontend-production.up.railway.app",
         "http://localhost:3000" ));
 
         // 2) Metodi HTTP permessi (incluso OPTIONS per la preflight)
